@@ -61,7 +61,6 @@ class Navbar extends Component {
             <Grid
               container
               direction="row"
-              // justify="space-between"
               alignItems="center"
             >
               <MenuIcon
