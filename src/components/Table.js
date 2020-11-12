@@ -90,7 +90,7 @@ function CartItems(props) {
                   <img src={row.img} height="60px" width="60px" alt="" />
                 </StyledTableCell>
                 <StyledTableCell align="center">{row.name}</StyledTableCell>
-                <StyledTableCell align="center">{row.price}</StyledTableCell>
+                <StyledTableCell align="center">${row.price}</StyledTableCell>
                 <StyledTableCell align="center">
                   <ButtonGroup
                     color="secondary"

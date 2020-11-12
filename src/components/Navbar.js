@@ -53,9 +53,6 @@ function Navbar(props) {
 const cart = () => {
   history.push("/myCart")
 }
-const home = () => {
-  history.push("/")
-}
   //Small Screens
   const createDrawer = () => {
     return (

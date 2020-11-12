@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Box, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 
 import { dummyData } from "../config/dummyData";
 
@@ -36,12 +37,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Products(props) {
+function Product(props) {
+  const [cartAdded, setCartAdded] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const classes = useStyles();
+
+  const addToCart = (e) => {
+    setCartAdded(true);
+    setDisableButton(true);
+    props.ADD_TO_CART({
+      name: e.currentTarget.getAttribute("product"),
+      unitPrice: e.currentTarget.getAttribute("price"),
+      price: e.currentTarget.getAttribute("price"),
+      img: e.currentTarget.getAttribute("img"),
+      id: e.currentTarget.id,
+      quantity: 1,
+    });
+  };
+
   return (
     <Box className={classes.alignItemsAndJustifyContent}>
-      {dummyData.map((key, index) => {
-        if (key.id === props.match.params.id) {
+      {dummyData
+        .filter((key) => key.id === props.match.params.id)
+        .map((key, index) => {
           return (
             <Grid container justify="center" key={index}>
               <Grid item xs={12} sm={6} className={classes.text}>
@@ -55,19 +73,27 @@ export default function Products(props) {
                   laborum fugiat deleniti? Eum quasi quidem quibusdam.
                 </Typography>
                 <Typography variant="h5" gutterBottom>
-                  <strong>{key.price}$</strong>
+                  <strong>${key.price}</strong>
                 </Typography>
                 <Button
                   variant="contained"
                   className={classes.button}
                   style={{
                     backgroundImage:
-                      "linear-gradient( right bottom, #019CAD,#4880EC)",
+                      "linear-gradient(to right bottom, #019CAD,#4880EC)",
                     color: "white",
+                    padding: "11px",
                   }}
-                  fullWidth
+                  id={key.id}
+                  price={key.price}
+                  img={key.img}
+                  product={key.product}
+                  onClick={addToCart}
+                  disabled={disableButton}
                 >
-                  <strong>ADD TO CART</strong>
+                  <strong>
+                    {cartAdded === false ? "ADD TO CART" : "ADDED"}
+                  </strong>
                 </Button>
               </Grid>
               <Grid
@@ -85,8 +111,20 @@ export default function Products(props) {
               </Grid>
             </Grid>
           );
-        }
-      })}
+        })}
     </Box>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    total_products: state.total_products,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ADD_TO_CART: (data) => {
+      dispatch({ type: "ADD_TO_CART", payload: data });
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

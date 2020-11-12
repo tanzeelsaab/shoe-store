@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: "250px",
+    marginTop: "150px",
   },
 }));
 
@@ -26,12 +26,15 @@ export default function Products() {
 
   return (
     <Box
-      style={{ maxWidth: "98%" }}
+      style={{ maxWidth: "100%" }}
       className={classes.alignItemsAndJustifyContent}
     >
       <Grid container justify="center">
         <Grid item xs={10}>
           <Grid container spacing={2} justify="center">
+            <Grid item xs={12} sm={12}>
+              <h1 style={{ textAlign: "center" }}>Our Amazing New Release</h1>
+            </Grid>
             {dummyData.map((key, index) => {
               return (
                 <Grid item xs={12} sm={4} key={index}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography, Button } from "@material-ui/core";
@@ -27,12 +27,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 function Card(props) {
+  const [cartAdded, setCartAdded] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const history = useHistory();
   const classes = useStyles();
   const productDetails = (e) => {
     history.push(`/product/${e.currentTarget.id}`);
   };
   const addToCart = (e) => {
+    setCartAdded(true);
+    setDisableButton(true);
     props.ADD_TO_CART({
       name: e.currentTarget.getAttribute("product"),
       unitPrice: e.currentTarget.getAttribute("price"),
@@ -71,7 +75,7 @@ function Card(props) {
           id={props.id}
           onClick={productDetails}
         >
-          <strong >EXPLORE</strong>
+          <strong>EXPLORE</strong>
         </Button>
         <Button
           variant="contained"
@@ -80,16 +84,17 @@ function Card(props) {
             backgroundImage:
               "linear-gradient(to right bottom, #019CAD,#4880EC)",
             color: "white",
-            padding: "15px",
+            padding: "11px",
           }}
-          className={classes.button}
-          endIcon={<AddShoppingCartIcon fontSize="large" />}
           id={props.id}
           price={props.price}
           img={props.img}
           product={props.product}
           onClick={addToCart}
-        />
+          disabled={disableButton}
+        >
+          {cartAdded === false ? <AddShoppingCartIcon /> : "ADDED"}
+        </Button>
       </div>
     </Paper>
   );
@@ -103,12 +108,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     ADD_TO_CART: (data) => {
       dispatch({ type: "ADD_TO_CART", payload: data });
-    },
-    REMOVE_FROM_CART: (data) => {
-      dispatch({ type: "REMOVE_FROM_CART", payload: data });
-    },
-    UPDATE_QUANTITY: (data) => {
-      dispatch({ type: "UPDATE_QUANTITY", payload: data });
     },
   };
 };
