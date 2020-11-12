@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Box, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
@@ -41,7 +41,7 @@ function Product(props) {
   const [cartAdded, setCartAdded] = useState(false);
   const [disableButton, setDisableButton] = useState(false);
   const classes = useStyles();
-
+useEffect(() => window.scrollTo(0, 0), [])
   const addToCart = (e) => {
     setCartAdded(true);
     setDisableButton(true);

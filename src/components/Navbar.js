@@ -116,11 +116,11 @@ const cart = () => {
                   />
                 </Typography>
               </ListItem>
-              <ListItem key={2} button divider>
-                Services
+              <ListItem key={2} button divider onClick={() => history.push('/')}>
+                Home
               </ListItem>
-              <ListItem key={3} button divider>
-                Portfolio
+              <ListItem key={3} button divider onClick={() => history.push('/products')}>
+                Products
               </ListItem>
               <ListItem key={4} button divider>
                 <Badge
@@ -163,14 +163,16 @@ const cart = () => {
           <Typography
             className={classes.padding}
             color="inherit"
+            onClick={() => history.push('/')}
           >
-            <strong>Services</strong>
+            <strong>Home</strong>
           </Typography>
           <Typography
             className={classes.padding}
             color="inherit"
+            onClick={() => history.push('/products')}
           >
-            <strong>Portfolio</strong>
+            <strong>Products</strong>
           </Typography>
             <strong>
               <Badge
