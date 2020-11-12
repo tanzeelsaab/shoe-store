@@ -1,4 +1,4 @@
-See live demo at [Create React App](https://tanzeelshoestore.surge.sh/).
+See live demo at [Live Demo](https://tanzeelshoestore.surge.sh/).
 
 ## Available Scripts
 
